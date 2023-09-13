@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface UserService {
 
     List<User> listar();
-    Optional<User> podId(Long id);
+    Optional<User> porId(Long id);
     User guardar(User usuario);
     void eliminar(Long id);
 
