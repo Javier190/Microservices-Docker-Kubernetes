@@ -70,4 +70,16 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id){
+
+        Optional<User> userOpt = userService.porId(id);
+
+        if (userOpt.isPresent()){
+            userService.eliminar(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }
