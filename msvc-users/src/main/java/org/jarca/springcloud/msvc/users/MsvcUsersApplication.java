@@ -8,7 +8,7 @@ public class MsvcUsersApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MsvcUsersApplication.class, args);
-		System.out.println("Hola Mundo Microservicioo !");
+		System.out.println("Microservice Users");
 	}
 
 }

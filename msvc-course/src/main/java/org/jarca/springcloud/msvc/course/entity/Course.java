@@ -1,6 +1,7 @@
 package org.jarca.springcloud.msvc.course.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 
 @Entity
@@ -11,6 +12,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
+    @NotEmpty
     private String name;
 
     public Long getId() {

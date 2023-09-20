@@ -1,6 +1,9 @@
 package org.jarca.springcloud.msvc.users.models.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -9,10 +12,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
+    @NotBlank
     private String name;
 
     @Column(unique = true)
+    @NotEmpty(message = "Email cannot be null")
+    @Email
     private String email;
+
+    @NotEmpty(message = "Password cannot be null")
     private String password;
 
     public Long getId() {

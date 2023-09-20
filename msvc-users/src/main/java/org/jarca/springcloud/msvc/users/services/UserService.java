@@ -11,5 +11,6 @@ public interface UserService {
     Optional<User> porId(Long id);
     User guardar(User usuario);
     void eliminar(Long id);
+    Optional <User> getByEmail(String email);
 
 }

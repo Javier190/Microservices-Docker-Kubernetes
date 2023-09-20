@@ -5,9 +5,13 @@ import org.jarca.springcloud.msvc.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -32,14 +36,19 @@ public class CourseController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> createCourse(@RequestBody Course course){
+    public ResponseEntity<?> createCourse(@Valid @RequestBody Course course, BindingResult bindingResult){
+        if (bindingResult.hasErrors()){
+            return validateResult(bindingResult);
+        }
         Course coursedb = courseService.saveCourse(course);
         return ResponseEntity.status(HttpStatus.CREATED).body(coursedb);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Course course, @PathVariable Long id){
-
+    public ResponseEntity<?> update(@Valid @RequestBody Course course,BindingResult bindingResult, @PathVariable Long id){
+        if (bindingResult.hasErrors()){
+            return validateResult(bindingResult);
+        }
         Optional<Course> opt = courseService.courseById(id);
         if (opt.isPresent()){
             Course cursoDB = opt.get();
@@ -59,6 +68,14 @@ public class CourseController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    private static ResponseEntity<Map<String, String>> validateResult(BindingResult bindingResult) {
+        Map<String, String> errors = new HashMap<>();
+        bindingResult.getFieldErrors().forEach(err -> {
+            errors.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
+        });
+        return ResponseEntity.badRequest().body(errors);
     }
 
 }

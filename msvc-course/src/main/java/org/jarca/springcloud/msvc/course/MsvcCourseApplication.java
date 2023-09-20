@@ -8,7 +8,7 @@ public class MsvcCourseApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MsvcCourseApplication.class, args);
-		System.out.println("Microservicio Curso");
+		System.out.println("Microservice Courses");
 	}
 
 }
